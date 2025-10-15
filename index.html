@@ -9,12 +9,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
         :root {
-            --cor-primaria: #2E7D32; /* Verde escuro */
-            --cor-secundaria: #66BB6A; /* Verde claro */
-            --cor-fundo: #E8F5E9; /* Verde bem claro / Fundo */
-            --cor-texto: #1B5E20; /* Texto verde escuro */
-            --cor-destaque: #FFC107; /* Amarelo para seleção */
-            --cor-encontrada: #AED581; /* Verde para palavra encontrada */
+            --cor-primaria: #2E7D32;
+            --cor-secundaria: #66BB6A;
+            --cor-fundo: #E8F5E9;
+            --cor-texto: #1B5E20;
+            --cor-destaque: #FFC107;
+            --cor-encontrada: #AED581;
             --sombra: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
@@ -31,18 +31,15 @@
             box-sizing: border-box;
         }
 
-        /* Container Principal - CSS ATUALIZADO AQUI */
         .game-container {
-            display: flex; /* Ativa o layout flexível */
-            flex-wrap: wrap; /* Permite que os itens quebrem para a linha de baixo se não couberem */
-            justify-content: center; /* Centraliza os itens no container */
-            align-items: flex-start; /* Alinha os itens pelo topo */
-            gap: 30px; /* Espaço entre o grid e a lista de palavras */
+            display: flex;
+            flex-direction: column; /* Organiza os itens em coluna */
+            align-items: center; /* Centraliza os itens horizontalmente */
+            gap: 30px;
             max-width: 1200px;
             width: 100%;
         }
 
-        /* Título */
         h1 {
             width: 100%;
             text-align: center;
@@ -50,19 +47,16 @@
             color: var(--cor-primaria);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin-bottom: 0;
         }
 
-        /* Seção do Caça-Palavras */
         .puzzle-section {
             background: #fff;
             padding: 20px;
             border-radius: 15px;
             box-shadow: var(--sombra);
-            flex-shrink: 0; /* Impede que o puzzle encolha */
         }
 
-        /* Grid do Caça-Palavras */
         #puzzle-grid {
             display: grid;
             grid-template-columns: repeat(15, 1fr);
@@ -112,53 +106,59 @@
             50% { transform: scale(1.2); }
         }
 
-        /* Seção da Lista de Palavras e Controles */
         .controls-section {
             background: #fff;
             padding: 20px;
             border-radius: 15px;
             box-shadow: var(--sombra);
-            width: 280px; /* Largura um pouco maior para a lista */
-            flex-shrink: 0;
+            width: 100%;
+            max-width: 800px; /* Limita a largura da seção de palavras */
+            box-sizing: border-box;
         }
 
         h2 {
             font-size: 1.5rem;
             color: var(--cor-primaria);
             margin-top: 0;
+            text-align: center;
             border-bottom: 2px solid var(--cor-secundaria);
             padding-bottom: 10px;
+            margin-bottom: 20px;
         }
         
         #timer {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: var(--cor-primaria);
-            background-color: #f1f8e9;
-            padding: 10px;
-            border-radius: 8px;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-
+        
+        /* CSS ATUALIZADO AQUI */
         #word-list {
             list-style-type: none;
             padding: 0;
             margin: 0;
+            display: flex; /* Transforma a lista em flex container */
+            flex-wrap: wrap; /* Permite que os itens quebrem a linha */
+            justify-content: center; /* Centraliza as palavras */
+            gap: 10px; /* Espaço entre as palavras */
         }
 
         #word-list li {
             font-size: 1.1rem;
-            padding: 8px;
-            margin-bottom: 5px;
-            border-radius: 5px;
+            padding: 8px 15px; /* Espaçamento interno para criar "tags" */
+            border-radius: 20px; /* Bordas arredondadas */
+            background-color: #f0f0f0; /* Cor de fundo da tag */
+            color: var(--cor-texto);
             transition: all 0.3s ease;
+            font-weight: 500;
         }
 
         #word-list li.found {
             text-decoration: line-through;
-            color: #9E9E9E;
-            background-color: #f0f0f0;
+            background-color: var(--cor-encontrada);
+            color: #fff;
         }
 
         #congrats-message {
@@ -182,7 +182,8 @@
 
         #reset-button {
             display: block;
-            width: 100%;
+            width: 200px; /* Largura fixa para o botão */
+            margin: 20px auto 0; /* Centraliza o botão */
             padding: 12px;
             font-size: 1rem;
             font-weight: 600;
@@ -191,7 +192,6 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 20px;
             transition: background-color 0.3s, transform 0.2s;
         }
         
@@ -200,27 +200,22 @@
             transform: translateY(-2px);
         }
 
-        /* Responsividade para telas menores */
+        /* Responsividade */
         @media (max-width: 650px) {
-            .game-container {
-                gap: 20px; /* Reduz o espaço em telas pequenas */
-            }
-             .controls-section {
-                width: 100%; /* Faz a lista de palavras ocupar toda a largura */
-             }
              .grid-cell {
-                width: 25px;
-                height: 25px;
+                width: 28px;
+                height: 28px;
                 font-size: 0.9rem;
             }
              #puzzle-grid {
                 gap: 3px;
             }
         }
-        @media (max-width: 450px) {
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
             .grid-cell {
-                width: 20px;
-                height: 20px;
+                width: 22px;
+                height: 22px;
                 font-size: 0.7rem;
             }
         }
@@ -230,14 +225,15 @@
 
     <div class="game-container">
         <h1>Caça-Palavras: Meio Ambiente</h1>
+        
+        <div id="timer">Tempo: 0s</div>
 
         <div class="puzzle-section">
             <div id="puzzle-grid"></div>
         </div>
 
         <div class="controls-section">
-            <h2>Palavras</h2>
-            <div id="timer">Tempo: 0s</div>
+            <h2>Encontre as Palavras</h2>
             <ul id="word-list"></ul>
             <div id="congrats-message">
                 <h3>Parabéns!</h3>
@@ -261,7 +257,6 @@
             let isSelecting = false;
             let selection = [];
             let foundWords = new Set();
-            
             let startTime;
             let timerInterval;
 
@@ -308,7 +303,7 @@
                 words.forEach(word => {
                     let placed = false;
                     while (!placed) {
-                        const direction = Math.floor(Math.random() * 3); // 0: H, 1: V, 2: D
+                        const direction = Math.floor(Math.random() * 3);
                         const reversed = Math.random() > 0.5;
                         const wordToPlace = reversed ? word.split('').reverse().join('') : word;
                         
@@ -347,10 +342,7 @@
                     if (dir === 0) c += i;
                     else if (dir === 1) r += i;
                     else { r += i; c += i; }
-
-                    if (grid[r][c] !== '' && grid[r][c] !== word[i]) {
-                        return false;
-                    }
+                    if (grid[r][c] !== '' && grid[r][c] !== word[i]) return false;
                 }
                 return true;
             }
@@ -409,20 +401,20 @@
                 const dRow = Math.sign(endRow - startRow);
                 const dCol = Math.sign(endCol - startCol);
 
-                if (Math.abs(endRow-startRow) !== Math.abs(endCol-startCol) && startRow !== endRow && startCol !== endCol) {
-                     endCell.classList.add('selected');
-                     selection.push(endCell);
-                     return;
+                if (Math.abs(endRow - startRow) !== Math.abs(endCol - startCol) && startRow !== endRow && startCol !== endCol) {
+                    endCell.classList.add('selected');
+                    selection.push(endCell);
+                    return;
                 }
 
                 let currentRow = startRow;
                 let currentCol = startCol;
 
-                while(currentRow !== endRow || currentCol !== endCol) {
+                while (currentRow !== endRow || currentCol !== endCol) {
                     currentRow += dRow;
                     currentCol += dCol;
                     const cellToAdd = document.querySelector(`[data-row='${currentRow}'][data-col='${currentCol}']`);
-                    selection.push(cellToAdd);
+                    if(cellToAdd) selection.push(cellToAdd);
                 }
                 
                 selection.forEach(cell => cell.classList.add('selected'));
@@ -440,7 +432,7 @@
                 } else if (words.includes(reversedSelectedWord) && !foundWords.has(reversedSelectedWord)) {
                     markWordAsFound(reversedSelectedWord);
                 } else {
-                     selection.forEach(cell => cell.classList.remove('selected'));
+                    selection.forEach(cell => cell.classList.remove('selected'));
                 }
                 selection = [];
             }
@@ -454,7 +446,7 @@
                     cell.classList.add('found');
                 });
                 
-                if(foundWords.size === words.length) {
+                if (foundWords.size === words.length) {
                     clearInterval(timerInterval);
                     const finalTime = Math.floor((new Date() - startTime) / 1000);
                     document.getElementById('final-score').textContent = finalTime;
