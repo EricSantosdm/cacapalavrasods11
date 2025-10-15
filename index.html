@@ -9,13 +9,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
         :root {
-            /* Paleta de cores baseada no ODS 11 */
-            --cor-primaria: #D84315;   /* Laranja Escuro */
-            --cor-secundaria: #FF7043;  /* Laranja Médio */
-            --cor-fundo: #FBE9E7;       /* Laranja Bem Claro / Fundo */
-            --cor-texto: #BF360C;       /* Laranja Queimado / Texto */
-            --cor-destaque: #FFC107;    /* Amarelo para seleção */
-            --cor-encontrada: #FFAB91;  /* Laranja Claro para palavra encontrada */
+            --cor-primaria: #D84315;
+            --cor-secundaria: #FF7043;
+            --cor-fundo: #FBE9E7;
+            --cor-texto: #BF360C;
+            --cor-destaque: #FFC107;
+            --cor-encontrada: #FFAB91;
             --sombra: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
@@ -36,19 +35,46 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 25px;
             max-width: 1200px;
             width: 100%;
         }
 
         h1 {
-            width: 100%;
             text-align: center;
             font-size: 2.5rem;
             color: var(--cor-primaria);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 0;
+        }
+
+        /* NOVO: Estilos para os botões de dificuldade */
+        #difficulty-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .difficulty-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--cor-primaria);
+            background-color: #fff;
+            color: var(--cor-primaria);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-btn:hover {
+            background-color: var(--cor-fundo);
+        }
+
+        .difficulty-btn.active {
+            background-color: var(--cor-primaria);
+            color: #fff;
         }
 
         .puzzle-section {
@@ -65,7 +91,7 @@
             border: 5px solid var(--cor-secundaria);
             padding: 10px;
             border-radius: 10px;
-            background-color: #fff3e0; /* Fundo do grid um pouco mais amarelado */
+            background-color: #fff3e0;
         }
 
         .grid-cell {
@@ -84,16 +110,10 @@
             transition: all 0.2s ease-in-out;
             border: 1px solid #ffe0b2;
         }
-
-        .grid-cell:hover {
-            background-color: #FFF8E1;
-            transform: scale(1.1);
-        }
         
         .grid-cell.selected {
             background-color: var(--cor-destaque);
             color: #424242;
-            transform: scale(1.1);
         }
         
         .grid-cell.found {
@@ -132,7 +152,7 @@
             font-weight: 600;
             color: var(--cor-primaria);
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         
         #word-list {
@@ -143,6 +163,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
+            min-height: 50px; /* Garante espaço mesmo com poucas palavras */
         }
 
         #word-list li {
@@ -200,7 +221,6 @@
             transform: translateY(-2px);
         }
 
-        /* Responsividade */
         @media (max-width: 650px) {
              .grid-cell { width: 28px; height: 28px; font-size: 0.9rem; }
              #puzzle-grid { gap: 3px; }
@@ -215,6 +235,12 @@
 
     <div class="game-container">
         <h1>Caça-Palavras: ODS 11</h1>
+        
+        <div id="difficulty-selector">
+            <button class="difficulty-btn" data-difficulty="facil">Fácil</button>
+            <button class="difficulty-btn active" data-difficulty="medio">Médio</button>
+            <button class="difficulty-btn" data-difficulty="dificil">Difícil</button>
+        </div>
         
         <div id="timer">Tempo: 0s</div>
 
@@ -236,33 +262,59 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Lista de palavras baseada no ODS 11
-            const words = [
-                'CIDADE', 'MORADIA', 'TRANSPORTE', 'URBANO', 'INCLUSAO', 
-                'SEGURO', 'SUSTENTAVEL', 'CULTURA', 'PATRIMONIO', 'PLANEJAMENTO', 
-                'COMUNIDADE', 'ACESSO', 'VERDE', 'PARQUES', 'RESIDUOS'
+            const allWords = [
+                // ODS 11 Words
+                'CIDADE', 'MORADIA', 'TRANSPORTE', 'URBANO', 'INCLUSAO', 'SEGURO', 'SUSTENTAVEL', 'CULTURA', 
+                'PATRIMONIO', 'PLANEJAMENTO', 'COMUNIDADE', 'ACESSO', 'VERDE', 'PARQUES', 'RESIDUOS', 
+                'SANEAMENTO', 'RESILIENCIA', 'PARTICIPACAO', 'GLOBAL', 'URBANIZACAO'
             ];
+            
+            // NOVO: Objeto de configuração para os níveis
+            const difficultySettings = {
+                facil: {
+                    wordCount: 6,
+                    words: ['CIDADE', 'MORADIA', 'VERDE', 'PARQUES', 'SEGURO', 'ACESSO'],
+                    directions: ['horizontal', 'vertical'], // 0, 1
+                    allowReverse: false
+                },
+                medio: {
+                    wordCount: 12,
+                    words: ['TRANSPORTE', 'URBANO', 'INCLUSAO', 'CULTURA', 'RESIDUOS', 'COMUNIDADE', 'CIDADE', 'MORADIA', 'VERDE', 'PARQUES', 'SEGURO', 'ACESSO'],
+                    directions: ['horizontal', 'vertical', 'diagonal'], // 0, 1, 2
+                    allowReverse: false
+                },
+                dificil: {
+                    wordCount: 20,
+                    words: allWords,
+                    directions: ['horizontal', 'vertical', 'diagonal'], // 0, 1, 2
+                    allowReverse: true
+                }
+            };
+            
+            let currentDifficulty = 'medio';
             const gridSize = 15;
             
-            let grid = [];
-            let isSelecting = false;
-            let selection = [];
-            let foundWords = new Set();
-            let startTime;
-            let timerInterval;
+            let grid = [], isSelecting = false, selection = [], foundWords = new Set();
+            let startTime, timerInterval;
 
             const gridElement = document.getElementById('puzzle-grid');
             const wordListElement = document.getElementById('word-list');
             const congratsMessage = document.getElementById('congrats-message');
-            const resetButton = document.getElementById('reset-button');
             const timerElement = document.getElementById('timer');
+            const difficultyButtons = document.querySelectorAll('.difficulty-btn');
 
-            function initializeGame() {
+            function initializeGame(difficulty) {
+                currentDifficulty = difficulty;
                 foundWords.clear();
                 congratsMessage.style.display = 'none';
                 
                 if (timerInterval) clearInterval(timerInterval);
                 timerElement.textContent = 'Tempo: 0s';
+
+                // Atualiza o botão ativo
+                difficultyButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.difficulty === difficulty);
+                });
 
                 createWordList();
                 grid = generateGrid();
@@ -280,8 +332,9 @@
             }
 
             function createWordList() {
+                const wordsForLevel = difficultySettings[currentDifficulty].words;
                 wordListElement.innerHTML = '';
-                words.forEach(word => {
+                wordsForLevel.forEach(word => {
                     const li = document.createElement('li');
                     li.textContent = word;
                     li.id = `word-${word}`;
@@ -290,19 +343,24 @@
             }
 
             function generateGrid() {
+                const settings = difficultySettings[currentDifficulty];
+                const wordsToPlace = settings.words;
                 let newGrid = Array.from({ length: gridSize }, () => Array(gridSize).fill(''));
-                words.forEach(word => {
+
+                wordsToPlace.forEach(word => {
                     let placed = false;
                     while (!placed) {
-                        const direction = Math.floor(Math.random() * 3);
-                        const reversed = Math.random() > 0.5;
+                        const directionIndex = Math.floor(Math.random() * settings.directions.length);
+                        const direction = settings.directions[directionIndex];
+
+                        const reversed = settings.allowReverse ? Math.random() > 0.5 : false;
                         const wordToPlace = reversed ? word.split('').reverse().join('') : word;
                         
                         let row, col;
-                        if (direction === 0) { // Horizontal
+                        if (direction === 'horizontal') {
                             row = Math.floor(Math.random() * gridSize);
                             col = Math.floor(Math.random() * (gridSize - wordToPlace.length + 1));
-                        } else if (direction === 1) { // Vertical
+                        } else if (direction === 'vertical') {
                             row = Math.floor(Math.random() * (gridSize - wordToPlace.length + 1));
                             col = Math.floor(Math.random() * gridSize);
                         } else { // Diagonal
@@ -317,6 +375,7 @@
                     }
                 });
 
+                // Preencher espaços vazios
                 for (let r = 0; r < gridSize; r++) {
                     for (let c = 0; c < gridSize; c++) {
                         if (newGrid[r][c] === '') {
@@ -330,9 +389,9 @@
             function canPlaceWord(grid, word, row, col, dir) {
                 for (let i = 0; i < word.length; i++) {
                     let r = row, c = col;
-                    if (dir === 0) c += i;
-                    else if (dir === 1) r += i;
-                    else { r += i; c += i; }
+                    if (dir === 'horizontal') c += i;
+                    else if (dir === 'vertical') r += i;
+                    else { r += i; c += i; } // Diagonal
                     if (grid[r][c] !== '' && grid[r][c] !== word[i]) return false;
                 }
                 return true;
@@ -341,9 +400,9 @@
             function placeWord(grid, word, row, col, dir) {
                 for (let i = 0; i < word.length; i++) {
                     let r = row, c = col;
-                    if (dir === 0) c += i;
-                    else if (dir === 1) r += i;
-                    else { r += i; c += i; }
+                    if (dir === 'horizontal') c += i;
+                    else if (dir === 'vertical') r += i;
+                    else { r += i; c += i; } // Diagonal
                     grid[r][c] = word[i];
                 }
             }
@@ -371,11 +430,7 @@
                 document.addEventListener('mouseup', endSelection);
             }
 
-            function startSelection(e) {
-                isSelecting = true;
-                selection = [e.target];
-                e.target.classList.add('selected');
-            }
+            function startSelection(e) { isSelecting = true; selection = [e.target]; e.target.classList.add('selected'); }
 
             function continueSelection(e) {
                 if (!isSelecting || selection.includes(e.target)) return;
@@ -393,34 +448,28 @@
                 const dCol = Math.sign(endCol - startCol);
 
                 if (Math.abs(endRow - startRow) !== Math.abs(endCol - startCol) && startRow !== endRow && startCol !== endCol) {
-                    endCell.classList.add('selected');
-                    selection.push(endCell);
-                    return;
+                    endCell.classList.add('selected'); selection.push(endCell); return;
                 }
 
-                let currentRow = startRow;
-                let currentCol = startCol;
-
+                let currentRow = startRow, currentCol = startCol;
                 while (currentRow !== endRow || currentCol !== endCol) {
-                    currentRow += dRow;
-                    currentCol += dCol;
+                    currentRow += dRow; currentCol += dCol;
                     const cellToAdd = document.querySelector(`[data-row='${currentRow}'][data-col='${currentCol}']`);
                     if(cellToAdd) selection.push(cellToAdd);
                 }
-                
                 selection.forEach(cell => cell.classList.add('selected'));
             }
 
             function endSelection() {
                 if (!isSelecting) return;
                 isSelecting = false;
-
+                const wordsForLevel = difficultySettings[currentDifficulty].words;
                 const selectedWord = selection.map(cell => cell.textContent).join('');
                 const reversedSelectedWord = selectedWord.split('').reverse().join('');
 
-                if (words.includes(selectedWord) && !foundWords.has(selectedWord)) {
+                if (wordsForLevel.includes(selectedWord) && !foundWords.has(selectedWord)) {
                     markWordAsFound(selectedWord);
-                } else if (words.includes(reversedSelectedWord) && !foundWords.has(reversedSelectedWord)) {
+                } else if (wordsForLevel.includes(reversedSelectedWord) && !foundWords.has(reversedSelectedWord)) {
                     markWordAsFound(reversedSelectedWord);
                 } else {
                     selection.forEach(cell => cell.classList.remove('selected'));
@@ -431,13 +480,9 @@
             function markWordAsFound(word) {
                 foundWords.add(word);
                 document.getElementById(`word-${word}`).classList.add('found');
+                selection.forEach(cell => { cell.classList.remove('selected'); cell.classList.add('found'); });
                 
-                selection.forEach(cell => {
-                    cell.classList.remove('selected');
-                    cell.classList.add('found');
-                });
-                
-                if (foundWords.size === words.length) {
+                if (foundWords.size === difficultySettings[currentDifficulty].wordCount) {
                     clearInterval(timerInterval);
                     const finalTime = Math.floor((new Date() - startTime) / 1000);
                     document.getElementById('final-score').textContent = finalTime;
@@ -445,9 +490,17 @@
                 }
             }
 
-            resetButton.addEventListener('click', initializeGame);
+            // Event Listeners para os botões
+            difficultyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    initializeGame(button.dataset.difficulty);
+                });
+            });
 
-            initializeGame();
+            document.getElementById('reset-button').addEventListener('click', () => initializeGame(currentDifficulty));
+
+            // Inicia o jogo no nível médio por padrão
+            initializeGame('medio');
         });
     </script>
 
