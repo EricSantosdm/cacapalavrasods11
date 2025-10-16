@@ -23,7 +23,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* NOVO: TEMA MODO ESCURO */
+        /* TEMA MODO ESCURO */
         body.dark-mode {
             --cor-primaria: #66BB6A;
             --cor-secundaria: #4CAF50;
@@ -34,7 +34,7 @@
             --sombra: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
         
-        /* NOVO: TEMA ACESSIBILIDADE (ALTO CONTRASTE) */
+        /* TEMA ACESSIBILIDADE (ALTO CONTRASTE) */
         body.accessibility-mode {
             font-size: 110%; /* Aumenta o tamanho da fonte base */
             --cor-primaria: #000000;
@@ -47,7 +47,7 @@
             --cor-borda: #000000;
         }
         
-        /* NOVO: COMBINAÇÃO (ALTO CONTRASTE ESCURO) */
+        /* COMBINAÇÃO (ALTO CONTRASTE ESCURO) */
         body.dark-mode.accessibility-mode {
             --cor-primaria: #FFFF00;
             --cor-secundaria: #FFFF00;
@@ -57,6 +57,11 @@
             --cor-encontrada: #FFFF00; /* Amarelo ao encontrar */
             --cor-caixa: #000000;
             --cor-borda: #FFFF00;
+        }
+
+        /* Adicionado para garantir a rolagem suave em todos os navegadores */
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -73,7 +78,6 @@
             box-sizing: border-box;
         }
 
-        /* NOVO: MENU SUPERIOR DE ACESSIBILIDADE */
         #top-menu {
             position: absolute;
             top: 20px;
@@ -106,74 +110,256 @@
         }
 
         .game-container {
-            display: flex; flex-direction: column; align-items: center; gap: 25px;
-            max-width: 1200px; width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            max-width: 1200px;
+            width: 100%;
+            flex-grow: 1;
+            justify-content: center;
         }
 
         .project-description-title {
-            text-align: center; font-size: 1.8rem; color: var(--cor-primaria); font-weight: 600;
-            margin-bottom: 30px; line-height: 1.3;
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--cor-primaria);
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.3;
         }
-        h1 { text-align: center; font-size: 2.5rem; color: var(--cor-primaria);
-            text-transform: uppercase; letter-spacing: 2px; margin: 0; }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--cor-primaria);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
 
-        #start-screen { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        #difficulty-selector { display: flex; gap: 15px; }
-        .difficulty-btn { padding: 10px 20px; font-size: 1rem; font-weight: 600; border: 2px solid var(--cor-primaria);
-            background-color: var(--cor-caixa); color: var(--cor-primaria); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
-        .difficulty-btn.active { background-color: var(--cor-primaria); color: var(--cor-caixa); }
-        .difficulty-btn:hover { background-color: var(--cor-fundo); }
+        #start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
 
-        #start-game-btn { padding: 15px 40px; font-size: 1.2rem; font-weight: 700; background-color: var(--cor-primaria);
-            color: var(--cor-fundo); border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; box-shadow: var(--sombra); }
-        #start-game-btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+        #difficulty-selector {
+            display: flex;
+            gap: 15px;
+        }
+        .difficulty-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--cor-primaria);
+            background-color: var(--cor-caixa);
+            color: var(--cor-primaria);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .difficulty-btn.active {
+            background-color: var(--cor-primaria);
+            color: var(--cor-caixa);
+        }
+        .difficulty-btn:hover {
+            background-color: var(--cor-fundo);
+        }
 
-        #game-area { display: flex; flex-direction: column; align-items: center; gap: 25px; width: 100%; }
-        .puzzle-section { background: var(--cor-caixa); padding: 20px; border-radius: 15px; box-shadow: var(--sombra); }
-        #puzzle-grid { display: grid; grid-template-columns: repeat(15, 1fr); gap: 5px;
-            border: 5px solid var(--cor-secundaria); padding: 10px; border-radius: 10px; background-color: var(--cor-fundo); }
-        .grid-cell { width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;
-            font-size: 1.2rem; font-weight: 600; text-transform: uppercase; background-color: var(--cor-caixa);
-            border-radius: 5px; cursor: pointer; user-select: none; transition: all 0.2s ease-in-out; border: 1px solid var(--cor-borda); }
+        #start-game-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background-color: var(--cor-primaria);
+            color: var(--cor-fundo);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--sombra);
+        }
+        #start-game-btn:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.2);
+        }
+
+        #game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            width: 100%;
+        }
+        .puzzle-section {
+            background: var(--cor-caixa);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--sombra);
+        }
+        #puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            gap: 5px;
+            border: 5px solid var(--cor-secundaria);
+            padding: 10px;
+            border-radius: 10px;
+            background-color: var(--cor-fundo);
+        }
+        .grid-cell {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            background-color: var(--cor-caixa);
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid var(--cor-borda);
+        }
         
-        .grid-cell.selected { background-color: var(--cor-destaque); color: #333; }
-        .grid-cell.found { background-color: var(--cor-encontrada); color: #fff; animation: bounce 0.3s; }
-        body.accessibility-mode .grid-cell.found { color: var(--cor-fundo); }
-        body.dark-mode.accessibility-mode .grid-cell.selected { color: #000; }
+        .grid-cell.selected {
+            background-color: var(--cor-destaque);
+            color: #333;
+        }
+        .grid-cell.found {
+            background-color: var(--cor-encontrada);
+            color: #fff;
+            animation: bounce 0.3s;
+        }
+        body.accessibility-mode .grid-cell.found {
+            color: var(--cor-fundo);
+        }
+        body.dark-mode.accessibility-mode .grid-cell.selected {
+            color: #000;
+        }
 
-
-        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-        .controls-section { background: var(--cor-caixa); padding: 20px; border-radius: 15px; box-shadow: var(--sombra);
-            width: 100%; max-width: 800px; box-sizing: border-box; }
-        #timer { font-size: 1.5rem; font-weight: 700; color: var(--cor-primaria); text-align: center; }
-        h2 { font-size: 1.5rem; color: var(--cor-primaria); margin-top: 0; text-align: center;
-            border-bottom: 2px solid var(--cor-secundaria); padding-bottom: 10px; margin-bottom: 20px; }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .controls-section {
+            background: var(--cor-caixa);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--sombra);
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+        #timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cor-primaria);
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: var(--cor-primaria);
+            margin-top: 0;
+            text-align: center;
+            border-bottom: 2px solid var(--cor-secundaria);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
         
-        #word-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; min-height: 50px;
-            list-style-type: none; padding: 0; margin: 0; }
-        #word-list li { font-size: 1.1rem; padding: 8px 15px; border-radius: 20px; background-color: var(--cor-fundo);
-            color: var(--cor-texto); transition: all 0.3s ease; font-weight: 500; }
-        #word-list li.found { text-decoration: line-through; background-color: var(--cor-encontrada); color: #fff; }
-        body.accessibility-mode #word-list li.found { color: var(--cor-fundo); }
+        #word-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            min-height: 50px;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #word-list li {
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        #word-list li.found {
+            text-decoration: line-through;
+            background-color: var(--cor-encontrada);
+            color: #fff;
+        }
+        body.accessibility-mode #word-list li.found {
+            color: var(--cor-fundo);
+        }
 
-
-        #congrats-message { display: none; text-align: center; margin-top: 20px; padding: 20px;
-            background-color: var(--cor-secundaria); color: #fff; border-radius: 10px; animation: fadeIn 0.5s; }
+        #congrats-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--cor-secundaria);
+            color: #fff;
+            border-radius: 10px;
+            animation: fadeIn 0.5s;
+        }
         #congrats-message h3 { margin: 0 0 10px; }
         #final-score { font-size: 1.2rem; color: var(--cor-texto); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-        #reset-button { display: block; width: 200px; margin: 20px auto 0; padding: 12px; font-size: 1rem; font-weight: 600;
-            color: var(--cor-fundo); background-color: var(--cor-primaria); border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
-        #reset-button:hover { filter: brightness(1.2); }
+        #reset-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto 0;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--cor-fundo);
+            background-color: var(--cor-primaria);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #reset-button:hover {
+            filter: brightness(1.2);
+        }
 
         .hidden { display: none !important; }
 
-        footer { margin-top: 30px; padding: 15px 20px; color: #888; font-size: 0.9rem; text-align: center; width: 100%;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
-            background-color: var(--cor-caixa); border-top: 1px solid var(--cor-borda); border-radius: 10px; box-shadow: var(--sombra); }
-        footer p { flex-grow: 1; margin: 0; padding: 0 10px; text-align: center; min-width: 150px; }
-        footer .logo { width: 100px; height: 100px; flex-shrink: 0; margin: 0 10px; object-fit: contain; }
+        footer {
+            margin-top: 30px;
+            padding: 15px 20px;
+            color: #888;
+            font-size: 0.9rem;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            background-color: var(--cor-caixa);
+            border-top: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            box-shadow: var(--sombra);
+        }
+        footer p {
+            flex-grow: 1;
+            margin: 0;
+            padding: 0 10px;
+            text-align: center;
+            min-width: 150px;
+        }
+        footer .logo {
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+            margin: 0 10px;
+            object-fit: contain;
+        }
 
         @media (max-width: 768px) { .project-description-title { font-size: 1.4rem; } h1 { font-size: 2rem; } .grid-cell { width: 30px; height: 30px; font-size: 1rem; } #puzzle-grid { gap: 4px; } footer { justify-content: center; gap: 10px; } footer p { order: 1; } footer .logo:nth-child(1) { order: 0; } footer .logo:nth-child(2) { order: 2; } footer .logo { width: 80px; height: 80px; } }
         @media (max-width: 650px) { .grid-cell { width: 28px; height: 28px; font-size: 0.9rem; } #puzzle-grid { gap: 3px; } }
@@ -183,8 +369,7 @@
 <body>
 
     <div id="top-menu">
-        <button id="dark-mode-toggle" class="toggle-btn" title="Alternar Modo Escuro">
-            </button>
+        <button id="dark-mode-toggle" class="toggle-btn" title="Alternar Modo Escuro"></button>
         <button id="accessibility-toggle" class="toggle-btn" title="Alternar Modo Acessibilidade">
             <svg viewBox="0 0 24 24"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
         </button>
@@ -229,7 +414,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // BANCO DE PALAVRAS E CONFIGURAÇÕES (inalterado)
+            // BANCO DE PALAVRAS E CONFIGURAÇÕES
             const masterWordList = {
                 ods11: ['CIDADE', 'MORADIA', 'TRANSPORTE', 'URBANO', 'INCLUSAO', 'SUSTENTAVEL', 'CULTURA', 'PATRIMONIO', 'PLANEJAMENTO', 'COMUNIDADE', 'RESILIENCIA', 'ACESSO', 'VERDE', 'PARQUES', 'RESIDUOS', 'PARTICIPACAO', 'GLOBAL', 'URBANIZACAO', 'SEGURO', 'POBREZA'],
                 ods6: ['AGUA', 'SANEAMENTO', 'HIGIENE', 'POTAVEL', 'ESGOTO', 'RECURSOS', 'GESTAO', 'ECOSSISTEMA', 'RIOS', 'TORNEIRA', 'REUSO', 'IRRIGACAO', 'POLUICAO', 'AQUATICOS', 'COOPERACAO', 'TRATAMENTO', 'QUALIDADE', 'UNIVERSAL', 'BACIA', 'EFICIENCIA']
@@ -239,8 +424,6 @@
                 medio: { wordCount: 12, sources: { ods11: 6, ods6: 6 }, directions: ['horizontal', 'vertical', 'diagonal'], allowReverse: false },
                 dificil: { wordCount: 20, sources: { ods11: 10, ods6: 10 }, directions: ['horizontal', 'vertical', 'diagonal'], allowReverse: true }
             };
-            
-            // VARIÁVEIS DE ESTADO
             let currentDifficulty = 'medio', currentWords = [], gridSize = 15;
             let grid = [], isSelecting = false, selection = [], foundWords = new Set(), startTime, timerInterval;
 
@@ -250,48 +433,36 @@
             const resetButton = document.getElementById('reset-button'), gridElement = document.getElementById('puzzle-grid');
             const wordListElement = document.getElementById('word-list'), congratsMessage = document.getElementById('congrats-message');
             const timerElement = document.getElementById('timer');
-            // NOVO: Elementos do menu
             const darkModeToggle = document.getElementById('dark-mode-toggle');
             const accessibilityToggle = document.getElementById('accessibility-toggle');
 
-            // --- NOVO: LÓGICA DE TEMAS E ACESSIBILIDADE ---
-
+            // --- LÓGICA DE TEMAS E ACESSIBILIDADE ---
             const sunIcon = `<svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zM12 19c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/><path d="M12 5c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1s1 .45 1 1v2c0 .55-.45 1-1 1zm0 14c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1s1 .45 1 1v2c0 .55-.45 1-1 1zm-7-7c-.55 0-1-.45-1-1H2c0-.55.45-1 1-1s1 .45 1 1h2c0 .55-.45 1-1 1zm14 0c-.55 0-1-.45-1-1h-2c0-.55.45-1 1-1s1 .45 1 1h2c0 .55-.45 1-1 1z"/></svg>`;
             const moonIcon = `<svg viewBox="0 0 24 24"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8V4z"/></svg>`;
+            function applyDarkMode(isDark) { document.body.classList.toggle('dark-mode', isDark); darkModeToggle.innerHTML = isDark ? sunIcon : moonIcon; localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled'); }
+            function applyAccessibilityMode(isAccessible) { document.body.classList.toggle('accessibility-mode', isAccessible); localStorage.setItem('accessibilityMode', isAccessible ? 'enabled' : 'disabled'); }
+            darkModeToggle.addEventListener('click', () => { applyDarkMode(!document.body.classList.contains('dark-mode')); });
+            accessibilityToggle.addEventListener('click', () => { applyAccessibilityMode(!document.body.classList.contains('accessibility-mode')); });
+            if (localStorage.getItem('darkMode') === 'enabled') { applyDarkMode(true); } else { applyDarkMode(false); }
+            if (localStorage.getItem('accessibilityMode') === 'enabled') { applyAccessibilityMode(true); }
 
-            function applyDarkMode(isDark) {
-                document.body.classList.toggle('dark-mode', isDark);
-                darkModeToggle.innerHTML = isDark ? sunIcon : moonIcon;
-                localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
-            }
-            
-            function applyAccessibilityMode(isAccessible) {
-                document.body.classList.toggle('accessibility-mode', isAccessible);
-                localStorage.setItem('accessibilityMode', isAccessible ? 'enabled' : 'disabled');
-            }
-            
-            darkModeToggle.addEventListener('click', () => {
-                applyDarkMode(!document.body.classList.contains('dark-mode'));
-            });
-
-            accessibilityToggle.addEventListener('click', () => {
-                applyAccessibilityMode(!document.body.classList.contains('accessibility-mode'));
-            });
-
-            // Aplicar temas salvos no carregamento da página
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                applyDarkMode(true);
-            } else {
-                applyDarkMode(false);
-            }
-            if (localStorage.getItem('accessibilityMode') === 'enabled') {
-                applyAccessibilityMode(true);
-            }
-
-
-            // --- FLUXO PRINCIPAL DO JOGO (inalterado) ---
+            // --- FLUXO PRINCIPAL DO JOGO ---
             function showStartScreen(){gameArea.classList.add('hidden');startScreen.classList.remove('hidden');if(timerInterval)clearInterval(timerInterval);timerElement.textContent='Tempo: 00:00';}
-            function showGameScreen(){startScreen.classList.add('hidden');gameArea.classList.remove('hidden');initializeGame(currentDifficulty);}
+            
+            function showGameScreen(){
+                startScreen.classList.add('hidden');
+                gameArea.classList.remove('hidden');
+                initializeGame(currentDifficulty);
+
+                // NOVO: Rola a tela para centralizar a matriz do jogo
+                const puzzleSection = document.querySelector('.puzzle-section');
+                if (puzzleSection) {
+                    setTimeout(() => { // Pequeno delay para garantir que o DOM foi renderizado
+                        puzzleSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 50);
+                }
+            }
+
             function initializeGame(difficulty){currentDifficulty=difficulty;foundWords.clear();congratsMessage.style.display='none';if(timerInterval)clearInterval(timerInterval);timerElement.textContent='Tempo: 00:00';difficultyButtons.forEach(btn=>btn.classList.toggle('active',btn.dataset.difficulty===difficulty));const settings=difficultySettings[difficulty];const wordsFromOds11=getRandomWords(masterWordList.ods11,settings.sources.ods11);const wordsFromOds6=getRandomWords(masterWordList.ods6,settings.sources.ods6);currentWords=[...wordsFromOds11,...wordsFromOds6];createWordList();grid=generateGrid();renderGrid();addCellListeners();startTime=new Date();timerInterval=setInterval(updateTimer,1000);}
             function markWordAsFound(word){foundWords.add(word);document.getElementById(`word-${word}`).classList.add('found');selection.forEach(cell=>{cell.classList.remove('selected');cell.classList.add('found');});if(foundWords.size===difficultySettings[currentDifficulty].wordCount){clearInterval(timerInterval);const finalTime=Math.floor((new Date()-startTime)/1000);const minutes=Math.floor(finalTime/60),seconds=finalTime%60;document.getElementById('final-score').textContent=`${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;celebrate();congratsMessage.style.display='block';setTimeout(()=>{congratsMessage.scrollIntoView({behavior:'smooth',block:'center'});},100);}}
             function celebrate(){confetti({particleCount:100,spread:70,origin:{y:0.6}});setTimeout(()=>confetti({particleCount:120,spread:100,origin:{x:0,y:1}}),250);setTimeout(()=>confetti({particleCount:120,spread:100,origin:{x:1,y:1}}),250);}
@@ -304,12 +475,10 @@
             function updateSelection(e){document.querySelectorAll(".grid-cell.selected").forEach(e=>e.classList.remove("selected"));const t=selection[0],[n,l]=[parseInt(t.dataset.row),parseInt(t.dataset.col)],[o,s]=[parseInt(e.dataset.row),parseInt(e.dataset.col)];selection=[t];const[c,a]=[Math.sign(o-n),Math.sign(s-l)];if(Math.abs(o-n)!==Math.abs(s-l)&&n!==o&&l!==s)return e.classList.add("selected"),void selection.push(e);let[d,r]=[n,l];for(;d!==o||r!==s;){d+=c,r+=a;const e=document.querySelector(`[data-row='${d}'][data-col='${r}']`);e&&selection.push(e)}selection.forEach(e=>e.classList.add("selected"))}
             const endSelection=()=>{if(!isSelecting)return;isSelecting=!1;const e=selection.map(e=>e.textContent).join(""),t=e.split("").reverse().join("");currentWords.includes(e)&&!foundWords.has(e)?markWordAsFound(e):currentWords.includes(t)&&!foundWords.has(t)?markWordAsFound(t):selection.forEach(e=>e.classList.remove("selected")),selection=[]};
             
-            // --- EVENT LISTENERS GERAIS ---
             difficultyButtons.forEach(button=>{button.addEventListener('click',()=>{currentDifficulty=button.dataset.difficulty;difficultyButtons.forEach(btn=>btn.classList.remove('active'));button.classList.add('active');});});
             startGameBtn.addEventListener('click',showGameScreen);
             resetButton.addEventListener('click',showStartScreen);
             
-            // Inicia o Jogo
             showStartScreen();
         });
     </script>
