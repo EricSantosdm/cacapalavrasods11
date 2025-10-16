@@ -3,114 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caça-Palavras | ODS 6 & 11</title>
+    <title>Caça-Palavras: ODS 6 & 11</title>
     <style>
         /* Estilos Gerais */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
         :root {
-            --cor-primaria: #D84315; --cor-secundaria: #FF7043; --cor-fundo: #FBE9E7;
-            --cor-texto: #BF360C; --cor-destaque: #FFC107; --cor-encontrada: #FFAB91;
+            /* NOVA PALETA DE CORES (Verde) */
+            --cor-primaria: #2E7D32;    /* Verde Escuro */
+            --cor-secundaria: #66BB6A;  /* Verde Médio */
+            --cor-fundo: #E8F5E9;       /* Verde Muito Claro */
+            --cor-texto: #1B5E20;       /* Verde Escuro para texto */
+            --cor-destaque: #FFD700;    /* Amarelo para seleção */
+            --cor-encontrada: #8BC34A;  /* Verde mais claro para palavra encontrada */
             --sombra: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         body {
-            font-family: 'Poppins', sans-serif; background-color: var(--cor-fundo); color: var(--cor-texto);
-            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
-            min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .game-container {
-            display: flex; flex-direction: column; align-items: center; gap: 25px;
-            max-width: 1200px; width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            max-width: 1200px;
+            width: 100%;
         }
 
-        /* NOVO: Cabeçalho com Logos */
+        /* Cabeçalho com Logos e Título Completo */
         .main-header {
-            display: flex; align-items: center; justify-content: center;
-            gap: 25px; width: 100%; flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            width: 100%;
+            flex-wrap: wrap; /* Para responsividade */
+            text-align: center;
+            margin-bottom: 20px;
         }
-        .logo { width: 60px; height: 60px; }
-        h1 {
-            text-align: center; font-size: 2.5rem; color: var(--cor-primaria); text-transform: uppercase;
-            letter-spacing: 2px; margin: 0;
+        .logo {
+            width: 60px; /* Tamanho dos logos */
+            height: 60px;
+            object-fit: contain; /* Garante que a imagem se ajuste sem cortar */
+        }
+        .full-project-title {
+            font-size: 1.6rem; /* Tamanho do título completo */
+            color: var(--cor-primaria);
+            font-weight: 600;
+            margin: 0;
+            flex-basis: 100%; /* Ocupa a largura total para centralizar */
+            line-height: 1.3;
+        }
+        h1 { /* Título do jogo durante a partida */
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--cor-primaria);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
         }
 
         /* Tela de Início */
-        #start-screen { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        #difficulty-selector { display: flex; gap: 15px; }
-        .difficulty-btn {
-            padding: 10px 20px; font-size: 1rem; font-weight: 600; border: 2px solid var(--cor-primaria);
-            background-color: #fff; color: var(--cor-primaria); border-radius: 8px; cursor: pointer; transition: all 0.3s ease;
+        #start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
-        .difficulty-btn:hover { background-color: var(--cor-fundo); }
-        .difficulty-btn.active { background-color: var(--cor-primaria); color: #fff; }
+
+        #difficulty-selector {
+            display: flex;
+            gap: 15px;
+        }
+
+        .difficulty-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--cor-primaria);
+            background-color: #fff;
+            color: var(--cor-primaria);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-btn:hover {
+            background-color: var(--cor-fundo);
+        }
+
+        .difficulty-btn.active {
+            background-color: var(--cor-primaria);
+            color: #fff;
+        }
 
         #start-game-btn {
-            padding: 15px 40px; font-size: 1.2rem; font-weight: 700; background-color: var(--cor-primaria);
-            color: #fff; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; box-shadow: var(--sombra);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background-color: var(--cor-primaria);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--sombra);
         }
-        #start-game-btn:hover { transform: translateY(-3px); background-color: #bf360c; }
+
+        #start-game-btn:hover {
+            transform: translateY(-3px);
+            background-color: #1B5E20; /* Verde mais escuro no hover */
+        }
 
         /* Área do Jogo */
-        #game-area { display: flex; flex-direction: column; align-items: center; gap: 25px; width: 100%; }
-        .puzzle-section { background: #fff; padding: 20px; border-radius: 15px; box-shadow: var(--sombra); }
-        #puzzle-grid {
-            display: grid; grid-template-columns: repeat(15, 1fr); gap: 5px;
-            border: 5px solid var(--cor-secundaria); padding: 10px; border-radius: 10px; background-color: #fff3e0;
+        #game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            width: 100%;
         }
+
+        .puzzle-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--sombra);
+        }
+
+        #puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            gap: 5px;
+            border: 5px solid var(--cor-secundaria);
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #f1f8e9; /* Fundo do grid em tom de verde claro */
+        }
+
         .grid-cell {
-            width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;
-            font-size: 1.2rem; font-weight: 600; text-transform: uppercase; background-color: #fff;
-            border-radius: 5px; cursor: pointer; user-select: none; transition: all 0.2s ease-in-out; border: 1px solid #ffe0b2;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            background-color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid #e0e0e0;
         }
         
-        .grid-cell.selected { background-color: var(--cor-destaque); color: #424242; }
-        .grid-cell.found { background-color: var(--cor-encontrada); color: var(--cor-primaria); animation: bounce 0.3s; }
-        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .grid-cell.selected {
+            background-color: var(--cor-destaque); /* Amarelo */
+            color: #333; /* Texto mais escuro para contraste */
+        }
+        
+        .grid-cell.found {
+            background-color: var(--cor-encontrada); /* Verde ao acertar */
+            color: #fff; /* Texto branco para contraste */
+            animation: bounce 0.3s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
 
         .controls-section {
-            background: #fff; padding: 20px; border-radius: 15px; box-shadow: var(--sombra);
-            width: 100%; max-width: 800px; box-sizing: border-box;
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--sombra);
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+
+        #timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cor-primaria);
+            text-align: center;
         }
         
-        #timer { font-size: 1.5rem; font-weight: 700; color: var(--cor-primaria); text-align: center; }
-        h2 { font-size: 1.5rem; color: var(--cor-primaria); margin-top: 0; text-align: center;
-            border-bottom: 2px solid var(--cor-secundaria); padding-bottom: 10px; margin-bottom: 20px; }
+        h2 {
+            font-size: 1.5rem;
+            color: var(--cor-primaria);
+            margin-top: 0;
+            text-align: center;
+            border-bottom: 2px solid var(--cor-secundaria);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
         
-        #word-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; min-height: 50px;
-            list-style-type: none; padding: 0; margin: 0; }
-        #word-list li { font-size: 1.1rem; padding: 8px 15px; border-radius: 20px; background-color: #fbe9e7;
-            color: var(--cor-texto); transition: all 0.3s ease; font-weight: 500; }
-        #word-list li.found { text-decoration: line-through; background-color: var(--cor-encontrada); color: #fff; }
+        #word-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            min-height: 50px;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
 
-        #congrats-message { display: none; text-align: center; margin-top: 20px; padding: 20px;
-            background-color: var(--cor-secundaria); color: #fff; border-radius: 10px; animation: fadeIn 0.5s; }
+        #word-list li {
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: #f0f0f0; /* Fundo cinza claro para as palavras */
+            color: var(--cor-texto);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        #word-list li.found {
+            text-decoration: line-through;
+            background-color: var(--cor-encontrada); /* Verde ao acertar */
+            color: #fff;
+        }
+
+        #congrats-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--cor-secundaria);
+            color: #fff;
+            border-radius: 10px;
+            animation: fadeIn 0.5s;
+        }
+        
         #congrats-message h3 { margin: 0 0 10px; }
-        #final-score { font-size: 1.2rem; color: #4E342E; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        #final-score { font-size: 1.2rem; color: #1B5E20; /* Tom de verde escuro */ }
 
-        #reset-button { display: block; width: 200px; margin: 20px auto 0; padding: 12px; font-size: 1rem; font-weight: 600;
-            color: #fff; background-color: var(--cor-primaria); border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
-        #reset-button:hover { background-color: #bf360c; transform: translateY(-2px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #reset-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto 0;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background-color: var(--cor-primaria);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #reset-button:hover {
+            background-color: #1B5E20;
+            transform: translateY(-2px);
+        }
 
         .hidden { display: none !important; }
 
-        /* NOVO: Estilo para o Rodapé */
-        footer { margin-top: 30px; padding: 10px; color: #888; font-size: 0.9rem; text-align: center; }
+        /* Rodapé */
+        footer {
+            margin-top: 30px;
+            padding: 10px;
+            color: #888;
+            font-size: 0.9rem;
+            text-align: center;
+        }
 
-        @media (max-width: 700px) { h1 { font-size: 1.8rem; } .logo { width: 50px; height: 50px; } }
-        @media (max-width: 650px) { .grid-cell { width: 28px; height: 28px; font-size: 0.9rem; } #puzzle-grid { gap: 3px; } }
-        @media (max-width: 480px) { h1 { font-size: 1.5rem; } .grid-cell { width: 22px; height: 22px; font-size: 0.7rem; } }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .full-project-title { font-size: 1.4rem; }
+            .logo { width: 50px; height: 50px; }
+            h1 { font-size: 2rem; }
+            .grid-cell { width: 30px; height: 30px; font-size: 1rem; }
+            #puzzle-grid { gap: 4px; }
+        }
+        @media (max-width: 650px) {
+            .grid-cell { width: 28px; height: 28px; font-size: 0.9rem; }
+            #puzzle-grid { gap: 3px; }
+        }
+        @media (max-width: 480px) {
+            .full-project-title { font-size: 1.1rem; }
+            .logo { width: 40px; height: 40px; }
+            h1 { font-size: 1.5rem; }
+            .grid-cell { width: 22px; height: 22px; font-size: 0.7rem; }
+            .difficulty-btn { padding: 8px 15px; font-size: 0.9rem; }
+            #start-game-btn { padding: 12px 30px; font-size: 1rem; }
+            #timer { font-size: 1.2rem; }
+            h2 { font-size: 1.3rem; }
+            #word-list li { font-size: 0.9rem; padding: 6px 10px; }
+        }
     </style>
 </head>
 <body>
 
     <div class="game-container">
         <header class="main-header">
-            <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="48" stroke="#0288D1" stroke-width="4" fill="#E1F5FE"/></svg>
-            <h1>ODS 6 & 11</h1>
-            <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="96" height="96" x="2" y="2" rx="10" stroke="#D84315" stroke-width="4" fill="#FBE9E7"/></svg>
+            <img src="logo-gamificacao.png" alt="Logo Gamificação" class="logo">
+            <h1 class="full-project-title">Caça-Palavras: ODS 6 (Água Potável e Saneamento) e ODS 11 (Cidades e Comunidades Sustentáveis)</h1>
+            <img src="logo-neurbi.jpeg" alt="Logo Neurbi" class="logo">
         </header>
         
         <div id="start-screen">
@@ -144,7 +355,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // NOVO: Banco de palavras maior
             const masterWordList = {
                 ods11: ['CIDADE', 'MORADIA', 'TRANSPORTE', 'URBANO', 'INCLUSAO', 'SUSTENTAVEL', 'CULTURA', 'PATRIMONIO', 'PLANEJAMENTO', 'COMUNIDADE', 'RESILIENCIA', 'ACESSO', 'VERDE', 'PARQUES', 'RESIDUOS', 'PARTICIPACAO', 'GLOBAL', 'URBANIZACAO', 'SEGURO', 'POBREZA'],
                 ods6: ['AGUA', 'SANEAMENTO', 'HIGIENE', 'POTAVEL', 'ESGOTO', 'RECURSOS', 'GESTAO', 'ECOSSISTEMA', 'RIOS', 'TORNEIRA', 'REUSO', 'IRRIGACAO', 'POLUICAO', 'AQUATICOS', 'COOPERACAO', 'TRATAMENTO', 'QUALIDADE', 'UNIVERSAL', 'BACIA', 'EFICIENCIA']
@@ -166,7 +376,10 @@
             const wordListElement = document.getElementById('word-list'), congratsMessage = document.getElementById('congrats-message');
             const timerElement = document.getElementById('timer');
 
-            // NOVO: Função para pegar palavras aleatórias do banco
+            // NOVO: Coordenadas do toque para mobile
+            let touchStartX, touchStartY;
+
+
             function getRandomWords(sourceArray, count) {
                 const shuffled = [...sourceArray].sort(() => 0.5 - Math.random());
                 return shuffled.slice(0, count);
@@ -193,7 +406,6 @@
 
                 difficultyButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.difficulty === difficulty));
                 
-                // NOVO: Geração da lista de palavras dinâmica
                 const settings = difficultySettings[difficulty];
                 const wordsFromOds11 = getRandomWords(masterWordList.ods11, settings.sources.ods11);
                 const wordsFromOds6 = getRandomWords(masterWordList.ods6, settings.sources.ods6);
@@ -268,7 +480,100 @@
                 }
             }
 
-            function endSelection() {
+            // ==========================================================
+            // Lógica de seleção (Mouse e Touch)
+            // ==========================================================
+
+            const canPlaceWord = (g,w,r,c,d) => { for (let i=0;i<w.length;i++) { let cr=r,cc=c; if(d==='horizontal')cc+=i; else if(d==='vertical')cr+=i; else {cr+=i;cc+=i;} if(g[cr][cc]!==''&&g[cr][cc]!==w[i])return false;} return true;};
+            const placeWord = (g,w,r,c,d) => { for (let i=0;i<w.length;i++) { let cr=r,cc=c; if(d==='horizontal')cc+=i; else if(d==='vertical')cr+=i; else {cr+=i;cc+=i;} g[cr][cc]=w[i];}};
+            const renderGrid = () => { gridElement.innerHTML=''; for(let r=0;r<gridSize;r++){for(let c=0;c<gridSize;c++){const e=document.createElement('div');e.className='grid-cell';e.textContent=grid[r][c];e.dataset.row=r;e.dataset.col=c;gridElement.appendChild(e);}}};
+            
+            // NOVO: Adiciona listeners de mouse E touch
+            const addCellListeners = () => { 
+                const cells = document.querySelectorAll('.grid-cell');
+                cells.forEach(cell => {
+                    cell.addEventListener('mousedown', startSelection);
+                    cell.addEventListener('mouseover', continueSelection);
+                    cell.addEventListener('touchstart', startTouchSelection, { passive: false }); // Adicionado para mobile
+                    cell.addEventListener('touchmove', continueTouchSelection, { passive: false }); // Adicionado para mobile
+                });
+                document.addEventListener('mouseup', endSelection);
+                document.addEventListener('touchend', endSelection); // Adicionado para mobile
+            };
+
+            const getCellFromCoords = (x, y) => {
+                const elements = document.elementsFromPoint(x, y);
+                return elements.find(el => el.classList.contains('grid-cell'));
+            };
+
+            const startSelection = (e) => {
+                isSelecting=true;
+                selection=[e.target];
+                e.target.classList.add('selected');
+                e.preventDefault(); // Evita arrastar a imagem em navegadores
+            };
+
+            const continueSelection = (e) => {
+                if(!isSelecting||selection.includes(e.target))return;
+                document.querySelectorAll('.grid-cell.selected').forEach(c=>c.classList.remove('selected'));
+                const[sC,eC]=[selection[0],e.target];
+                const[sR,sC_]=[parseInt(sC.dataset.row),parseInt(sC.dataset.col)],[eR,eC_]=[parseInt(eC.dataset.row),parseInt(eC.dataset.col)];
+                selection=[sC];
+                const[dR,dC]=[Math.sign(eR-sR),Math.sign(eC_-sC_)];
+                if(Math.abs(eR-sR)!==Math.abs(eC_-sC_)&&sR!==eR&&sC_!==eC_){eC.classList.add('selected');selection.push(eC);return;}
+                let[cR,cC]=[sR,sC_];
+                while(cR!==eR||cC!==eC_){cR+=dR;cC+=dC; const a=document.querySelector(`[data-row='${cR}'][data-col='${cC}']`); if(a)selection.push(a);}
+                selection.forEach(c=>c.classList.add('selected'));
+            };
+
+            // NOVO: Funções para toque (mobile)
+            const startTouchSelection = (e) => {
+                e.preventDefault(); // Previne o scroll da página ao tocar/arrastar
+                isSelecting = true;
+                const touch = e.touches[0];
+                const targetCell = getCellFromCoords(touch.clientX, touch.clientY);
+                if (targetCell) {
+                    selection = [targetCell];
+                    targetCell.classList.add('selected');
+                }
+            };
+
+            const continueTouchSelection = (e) => {
+                if (!isSelecting) return;
+                e.preventDefault(); // Previne o scroll da página ao tocar/arrastar
+                const touch = e.touches[0];
+                const currentCell = getCellFromCoords(touch.clientX, touch.clientY);
+                
+                if (currentCell && !selection.includes(currentCell)) {
+                    // Simula o continueSelection do mouse
+                    document.querySelectorAll('.grid-cell.selected').forEach(c => c.classList.remove('selected'));
+                    const startCell = selection[0]; // Mantém a primeira célula selecionada
+                    const endCell = currentCell;
+
+                    const startRow = parseInt(startCell.dataset.row);
+                    const startCol = parseInt(startCell.dataset.col);
+                    const endRow = parseInt(endCell.dataset.row);
+                    const endCol = parseInt(endCell.dataset.col);
+                    
+                    selection = [startCell];
+                    const dRow = Math.sign(endRow - startRow);
+                    const dCol = Math.sign(endCol - startCol);
+
+                    if (Math.abs(endRow - startRow) !== Math.abs(endCol - startCol) && startRow !== endRow && startCol !== endCol) {
+                        endCell.classList.add('selected'); selection.push(endCell); return;
+                    }
+
+                    let currentRow = startRow, currentCol = startCol;
+                    while (currentRow !== endRow || currentCol !== endCol) {
+                        currentRow += dRow; currentCol += dCol;
+                        const cellToAdd = document.querySelector(`[data-row='${currentRow}'][data-col='${currentCol}']`);
+                        if(cellToAdd) selection.push(cellToAdd);
+                    }
+                    selection.forEach(cell => cell.classList.add('selected'));
+                }
+            };
+
+            const endSelection = () => {
                 if (!isSelecting) return;
                 isSelecting = false;
                 const selectedWord = selection.map(cell => cell.textContent).join('');
@@ -277,15 +582,9 @@
                 else if (currentWords.includes(reversedSelectedWord) && !foundWords.has(reversedSelectedWord)) markWordAsFound(reversedSelectedWord);
                 else selection.forEach(cell => cell.classList.remove('selected'));
                 selection = [];
-            }
+            };
+            // --- FIM DA Lógica de seleção ---
 
-            // --- FUNÇÕES DE AJUDA COMPACTADAS (sem alteração na lógica) ---
-            const canPlaceWord = (g,w,r,c,d) => { for (let i=0;i<w.length;i++) { let cr=r,cc=c; if(d==='horizontal')cc+=i; else if(d==='vertical')cr+=i; else {cr+=i;cc+=i;} if(g[cr][cc]!==''&&g[cr][cc]!==w[i])return false;} return true;};
-            const placeWord = (g,w,r,c,d) => { for (let i=0;i<w.length;i++) { let cr=r,cc=c; if(d==='horizontal')cc+=i; else if(d==='vertical')cr+=i; else {cr+=i;cc+=i;} g[cr][cc]=w[i];}};
-            const renderGrid = () => { gridElement.innerHTML=''; for(let r=0;r<gridSize;r++){for(let c=0;c<gridSize;c++){const e=document.createElement('div');e.className='grid-cell';e.textContent=grid[r][c];e.dataset.row=r;e.dataset.col=c;gridElement.appendChild(e);}}};
-            const addCellListeners = () => { const cs=document.querySelectorAll('.grid-cell'); cs.forEach(c=>{c.addEventListener('mousedown',startSelection);c.addEventListener('mouseover',continueSelection);}); document.addEventListener('mouseup',endSelection);};
-            const startSelection = (e) => { isSelecting=true; selection=[e.target]; e.target.classList.add('selected');};
-            const continueSelection = (e) => { if(!isSelecting||selection.includes(e.target))return; document.querySelectorAll('.grid-cell.selected').forEach(c=>c.classList.remove('selected')); const[sC,eC]=[selection[0],e.target]; const[sR,sC_]=[parseInt(sC.dataset.row),parseInt(sC.dataset.col)],[eR,eC_]=[parseInt(eC.dataset.row),parseInt(eC.dataset.col)]; selection=[sC]; const[dR,dC]=[Math.sign(eR-sR),Math.sign(eC_-sC_)]; if(Math.abs(eR-sR)!==Math.abs(eC_-sC_)&&sR!==eR&&sC_!==eC_){eC.classList.add('selected');selection.push(eC);return;} let[cR,cC]=[sR,sC_]; while(cR!==eR||cC!==eC_){cR+=dR;cC+=dC; const a=document.querySelector(`[data-row='${cR}'][data-col='${cC}']`); if(a)selection.push(a);} selection.forEach(c=>c.classList.add('selected'));};
 
             // Event Listeners
             difficultyButtons.forEach(button => {
