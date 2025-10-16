@@ -10,332 +10,96 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
         :root {
-            --cor-primaria: #2E7D32;    /* Verde Escuro */
-            --cor-secundaria: #66BB6A;  /* Verde Médio */
-            --cor-fundo: #E8F5E9;       /* Verde Muito Claro */
-            --cor-texto: #1B5E20;       /* Verde Escuro para texto */
-            --cor-destaque: #FFD700;    /* Amarelo para seleção */
-            --cor-encontrada: #8BC34A;  /* Verde mais claro para palavra encontrada */
+            --cor-primaria: #2E7D32;
+            --cor-secundaria: #66BB6A;
+            --cor-fundo: #E8F5E9;
+            --cor-texto: #1B5E20;
+            --cor-destaque: #FFD700;
+            --cor-encontrada: #8BC34A;
             --sombra: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--cor-fundo);
-            color: var(--cor-texto);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif; background-color: var(--cor-fundo); color: var(--cor-texto);
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+            min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box;
         }
 
         .game-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px;
-            max-width: 1200px;
-            width: 100%;
+            display: flex; flex-direction: column; align-items: center; gap: 25px;
+            max-width: 1200px; width: 100%;
         }
 
-        /* Título Principal na tela de início */
-        .project-description-title {
-            text-align: center;
-            font-size: 1.8rem; /* Tamanho do título completo */
-            color: var(--cor-primaria);
-            font-weight: 600;
-            margin-bottom: 30px; /* Mais espaço abaixo */
-            line-height: 1.3;
+        .main-header {
+            display: flex; align-items: center; justify-content: center; gap: 25px;
+            width: 100%; flex-wrap: wrap; text-align: center; margin-bottom: 20px;
         }
+        .logo { width: 60px; height: 60px; object-fit: contain; }
+        .full-project-title { font-size: 1.6rem; color: var(--cor-primaria); font-weight: 600;
+            margin: 0; flex-basis: 100%; line-height: 1.3; }
+        h1 { text-align: center; font-size: 2.5rem; color: var(--cor-primaria);
+            text-transform: uppercase; letter-spacing: 2px; margin: 0; }
 
-        /* Título do Jogo (durante a partida) */
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--cor-primaria);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0;
-        }
+        #start-screen { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        #difficulty-selector { display: flex; gap: 15px; }
+        .difficulty-btn { padding: 10px 20px; font-size: 1rem; font-weight: 600; border: 2px solid var(--cor-primaria);
+            background-color: #fff; color: var(--cor-primaria); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .difficulty-btn:hover { background-color: var(--cor-fundo); }
+        .difficulty-btn.active { background-color: var(--cor-primaria); color: #fff; }
 
-        /* Tela de Início */
-        #start-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
+        #start-game-btn { padding: 15px 40px; font-size: 1.2rem; font-weight: 700; background-color: var(--cor-primaria);
+            color: #fff; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; box-shadow: var(--sombra); }
+        #start-game-btn:hover { transform: translateY(-3px); background-color: #1B5E20; }
 
-        #difficulty-selector {
-            display: flex;
-            gap: 15px;
-        }
-
-        .difficulty-btn {
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: 600;
-            border: 2px solid var(--cor-primaria);
-            background-color: #fff;
-            color: var(--cor-primaria);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .difficulty-btn:hover {
-            background-color: var(--cor-fundo);
-        }
-
-        .difficulty-btn.active {
-            background-color: var(--cor-primaria);
-            color: #fff;
-        }
-
-        #start-game-btn {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            background-color: var(--cor-primaria);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--sombra);
-        }
-
-        #start-game-btn:hover {
-            transform: translateY(-3px);
-            background-color: #1B5E20; /* Verde mais escuro no hover */
-        }
-
-        /* Área do Jogo */
-        #game-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px;
-            width: 100%;
-        }
-
-        .puzzle-section {
-            background: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: var(--sombra);
-        }
-
-        #puzzle-grid {
-            display: grid;
-            grid-template-columns: repeat(15, 1fr);
-            gap: 5px;
-            border: 5px solid var(--cor-secundaria);
-            padding: 10px;
-            border-radius: 10px;
-            background-color: #f1f8e9; /* Fundo do grid em tom de verde claro */
-        }
-
-        .grid-cell {
-            width: 35px;
-            height: 35px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            background-color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid #e0e0e0;
-        }
+        #game-area { display: flex; flex-direction: column; align-items: center; gap: 25px; width: 100%; }
+        .puzzle-section { background: #fff; padding: 20px; border-radius: 15px; box-shadow: var(--sombra); }
+        #puzzle-grid { display: grid; grid-template-columns: repeat(15, 1fr); gap: 5px;
+            border: 5px solid var(--cor-secundaria); padding: 10px; border-radius: 10px; background-color: #f1f8e9; }
+        .grid-cell { width: 35px; height: 35px; display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; font-weight: 600; text-transform: uppercase; background-color: #fff;
+            border-radius: 5px; cursor: pointer; user-select: none; transition: all 0.2s ease-in-out; border: 1px solid #e0e0e0; }
         
-        .grid-cell.selected {
-            background-color: var(--cor-destaque); /* Amarelo */
-            color: #333; /* Texto mais escuro para contraste */
-        }
+        .grid-cell.selected { background-color: var(--cor-destaque); color: #333; }
+        .grid-cell.found { background-color: var(--cor-encontrada); color: #fff; animation: bounce 0.3s; }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+        .controls-section { background: #fff; padding: 20px; border-radius: 15px; box-shadow: var(--sombra);
+            width: 100%; max-width: 800px; box-sizing: border-box; }
+        #timer { font-size: 1.5rem; font-weight: 700; color: var(--cor-primaria); text-align: center; }
+        h2 { font-size: 1.5rem; color: var(--cor-primaria); margin-top: 0; text-align: center;
+            border-bottom: 2px solid var(--cor-secundaria); padding-bottom: 10px; margin-bottom: 20px; }
         
-        .grid-cell.found {
-            background-color: var(--cor-encontrada); /* Verde ao acertar */
-            color: #fff; /* Texto branco para contraste */
-            animation: bounce 0.3s;
-        }
+        #word-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; min-height: 50px;
+            list-style-type: none; padding: 0; margin: 0; }
+        #word-list li { font-size: 1.1rem; padding: 8px 15px; border-radius: 20px; background-color: #f0f0f0;
+            color: var(--cor-texto); transition: all 0.3s ease; font-weight: 500; }
+        #word-list li.found { text-decoration: line-through; background-color: var(--cor-encontrada); color: #fff; }
 
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .controls-section {
-            background: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: var(--sombra);
-            width: 100%;
-            max-width: 800px;
-            box-sizing: border-box;
-        }
-
-        #timer {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--cor-primaria);
-            text-align: center;
-        }
-        
-        h2 {
-            font-size: 1.5rem;
-            color: var(--cor-primaria);
-            margin-top: 0;
-            text-align: center;
-            border-bottom: 2px solid var(--cor-secundaria);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        
-        #word-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            min-height: 50px;
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #word-list li {
-            font-size: 1.1rem;
-            padding: 8px 15px;
-            border-radius: 20px;
-            background-color: #f0f0f0; /* Fundo cinza claro para as palavras */
-            color: var(--cor-texto);
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        #word-list li.found {
-            text-decoration: line-through;
-            background-color: var(--cor-encontrada); /* Verde ao acertar */
-            color: #fff;
-        }
-
-        #congrats-message {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-            padding: 20px;
-            background-color: var(--cor-secundaria);
-            color: #fff;
-            border-radius: 10px;
-            animation: fadeIn 0.5s;
-        }
-        
+        #congrats-message { display: none; text-align: center; margin-top: 20px; padding: 20px;
+            background-color: var(--cor-secundaria); color: #fff; border-radius: 10px; animation: fadeIn 0.5s; }
         #congrats-message h3 { margin: 0 0 10px; }
-        #final-score { font-size: 1.2rem; color: #1B5E20; /* Tom de verde escuro */ }
+        #final-score { font-size: 1.2rem; color: #1B5E20; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        #reset-button {
-            display: block;
-            width: 200px;
-            margin: 20px auto 0;
-            padding: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #fff;
-            background-color: var(--cor-primaria);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        #reset-button:hover {
-            background-color: #1B5E20;
-            transform: translateY(-2px);
-        }
+        #reset-button { display: block; width: 200px; margin: 20px auto 0; padding: 12px; font-size: 1rem; font-weight: 600;
+            color: #fff; background-color: var(--cor-primaria); border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        #reset-button:hover { background-color: #1B5E20; transform: translateY(-2px); }
 
         .hidden { display: none !important; }
+        footer { margin-top: 30px; padding: 10px; color: #888; font-size: 0.9rem; text-align: center; }
 
-        /* Rodapé com Logos */
-        footer {
-            margin-top: 30px;
-            padding: 15px 20px; /* Aumenta o padding do rodapé */
-            color: #888;
-            font-size: 0.9rem;
-            text-align: center;
-            width: 100%;
-            display: flex; /* Flexbox para alinhar itens */
-            justify-content: space-between; /* Espaço entre os itens */
-            align-items: center;
-            flex-wrap: wrap; /* Para responsividade em telas pequenas */
-            background-color: #fff; /* Fundo branco para o rodapé */
-            border-top: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: var(--sombra);
-        }
-
-        footer p {
-            flex-grow: 1; /* Faz o parágrafo ocupar o espaço restante */
-            margin: 0;
-            padding: 0 10px; /* Padding para separar do logo */
-            text-align: center; /* Centraliza o texto */
-            min-width: 150px; /* Garante que o texto não fique muito espremido */
-        }
-
-        footer .logo {
-            width: 100px; /* NOVO: Tamanho dos logos no rodapé */
-            height: 100px;
-            flex-shrink: 0; /* Previne que o logo encolha */
-            margin: 0 10px; /* Espaçamento entre logos e texto */
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .project-description-title { font-size: 1.4rem; }
-            h1 { font-size: 2rem; }
-            .grid-cell { width: 30px; height: 30px; font-size: 1rem; }
-            #puzzle-grid { gap: 4px; }
-            footer { justify-content: center; gap: 10px; }
-            footer p { order: 1; /* Coloca o parágrafo no centro em telas pequenas */ }
-            footer .logo:nth-child(1) { order: 0; } /* Logo esquerdo */
-            footer .logo:nth-child(2) { order: 2; } /* Logo direito */
-            footer .logo { width: 80px; height: 80px; }
-        }
-        @media (max-width: 650px) {
-            .grid-cell { width: 28px; height: 28px; font-size: 0.9rem; }
-            #puzzle-grid { gap: 3px; }
-        }
-        @media (max-width: 480px) {
-            .project-description-title { font-size: 1.1rem; }
-            h1 { font-size: 1.5rem; }
-            .grid-cell { width: 22px; height: 22px; font-size: 0.7rem; }
-            .difficulty-btn { padding: 8px 15px; font-size: 0.9rem; }
-            #start-game-btn { padding: 12px 30px; font-size: 1rem; }
-            #timer { font-size: 1.2rem; }
-            h2 { font-size: 1.3rem; }
-            #word-list li { font-size: 0.9rem; padding: 6px 10px; }
-            footer .logo { width: 60px; height: 60px; margin: 0 5px; }
-            footer p { font-size: 0.8rem; }
-        }
+        @media (max-width: 768px) { .full-project-title { font-size: 1.4rem; } .logo { width: 50px; height: 50px; } h1 { font-size: 2rem; } .grid-cell { width: 30px; height: 30px; font-size: 1rem; } #puzzle-grid { gap: 4px; } }
+        @media (max-width: 650px) { .grid-cell { width: 28px; height: 28px; font-size: 0.9rem; } #puzzle-grid { gap: 3px; } }
+        @media (max-width: 480px) { .full-project-title { font-size: 1.1rem; } .logo { width: 40px; height: 40px; } h1 { font-size: 1.5rem; } .grid-cell { width: 22px; height: 22px; font-size: 0.7rem; } .difficulty-btn { padding: 8px 15px; font-size: 0.9rem; } #start-game-btn { padding: 12px 30px; font-size: 1rem; } #timer { font-size: 1.2rem; } h2 { font-size: 1.3rem; } #word-list li { font-size: 0.9rem; padding: 6px 10px; } }
     </style>
 </head>
 <body>
 
     <div class="game-container">
         <header class="main-header">
-            <h1 class="project-description-title">Caça-Palavras: ODS 6 (Água Potável e Saneamento) e ODS 11 (Cidades e Comunidades Sustentáveis)</h1>
+            <img src="logo-gamificacao.png" alt="Logo Gamificação" class="logo">
+            <h1 class="full-project-title">Caça-Palavras: ODS 6 (Água Potável e Saneamento) e ODS 11 (Cidades e Comunidades Sustentáveis)</h1>
+            <img src="logo-neurbi.jpeg" alt="Logo Neurbi" class="logo">
         </header>
         
         <div id="start-screen">
@@ -348,7 +112,7 @@
         </div>
 
         <div id="game-area" class="hidden">
-            <h1 class="hidden">ODS 6 & 11</h1> <div id="timer">Tempo: 00:00</div>
+            <div id="timer">Tempo: 00:00</div>
             <div class="puzzle-section"><div id="puzzle-grid"></div></div>
             <div class="controls-section">
                 <h2>Encontre os Conceitos</h2>
@@ -364,9 +128,7 @@
     </div>
     
     <footer>
-        <img src="logo-gamificacao.png" alt="Logo Gamificação" class="logo">
         <p>Desenvolvido por UFERSA - Campus Pau dos Ferros</p>
-        <img src="logo-neurbi.jpeg" alt="Logo Neurbi" class="logo">
     </footer>
 
     <script>
@@ -439,10 +201,10 @@
                     const minutes = Math.floor(finalTime / 60), seconds = finalTime % 60;
                     document.getElementById('final-score').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                     
-                    // Dispara a celebração e scroll
+                    // NOVO: Dispara a celebração e scroll
                     celebrate();
                     congratsMessage.style.display = 'block';
-                    setTimeout(() => {
+                    setTimeout(() => { // Pequeno delay para a animação começar
                         congratsMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 100);
                 }
@@ -451,6 +213,7 @@
             // --- FUNÇÕES DE AJUDA ---
 
             function celebrate() {
+                // Dispara confetes de cantos diferentes para um efeito mais dinâmico
                 confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
                 setTimeout(() => confetti({ particleCount: 120, spread: 100, origin: { x: 0, y: 1 } }), 250);
                 setTimeout(() => confetti({ particleCount: 120, spread: 100, origin: { x: 1, y: 1 } }), 250);
@@ -476,10 +239,10 @@
                 return [...sourceArray].sort(() => 0.5 - Math.random()).slice(0, count);
             }
 
-            function generateGrid() { /* ...código da função inalterado... */ return Array.from({ length: gridSize }, () => Array(gridSize).fill('')); } // Simplificado para evitar repetição
-            const canPlaceWord = (g,w,r,c,d) => { /* ...código da função inalterado... */ return true;}; // Simplificado
-            const placeWord = (g,w,r,c,d) => { /* ...código da função inalterado... */ }; // Simplificado
-            const renderGrid = () => { /* ...código da função inalterado... */ }; // Simplificado
+            function generateGrid() { /* ...código da função inalterado... */ }
+            const canPlaceWord = (g,w,r,c,d) => { /* ...código da função inalterado... */ };
+            const placeWord = (g,w,r,c,d) => { /* ...código da função inalterado... */ };
+            const renderGrid = () => { /* ...código da função inalterado... */ };
 
             // --- LÓGICA DE SELEÇÃO (MOUSE E TOUCH) ---
 
@@ -568,58 +331,12 @@
             startGameBtn.addEventListener('click', showGameScreen);
             resetButton.addEventListener('click', showStartScreen);
 
-            // --- CÓDIGO DA FUNÇÃO generateGrid (COMPLETO) ---
-            generateGrid = () => {
-                const settings = difficultySettings[currentDifficulty];
-                const wordsToPlace = [...currentWords].sort((a, b) => b.length - a.length);
-                let newGrid;
-                let successfulGeneration = false;
-
-                while (!successfulGeneration) {
-                    newGrid = Array.from({ length: gridSize }, () => Array(gridSize).fill(''));
-                    let allWordsPlaced = true;
-
-                    for (const word of wordsToPlace) {
-                        let placed = false;
-                        let attempts = 0;
-                        const maxAttempts = 200;
-
-                        while (!placed && attempts < maxAttempts) {
-                            const dirIndex = Math.floor(Math.random() * settings.directions.length);
-                            const direction = settings.directions[dirIndex];
-                            const reversed = settings.allowReverse ? Math.random() > 0.5 : false;
-                            const wordStr = reversed ? word.split('').reverse().join('') : word;
-                            
-                            let row, col;
-                            if (direction === 'horizontal') {
-                                row = Math.floor(Math.random() * gridSize);
-                                col = Math.floor(Math.random() * (gridSize - wordStr.length + 1));
-                            } else if (direction === 'vertical') {
-                                row = Math.floor(Math.random() * (gridSize - wordStr.length + 1));
-                                col = Math.floor(Math.random() * gridSize);
-                            } else { // Diagonal
-                                row = Math.floor(Math.random() * (gridSize - wordStr.length + 1));
-                                col = Math.floor(Math.random() * (gridSize - wordStr.length + 1));
-                            }
-
-                            if (canPlaceWord(newGrid, wordStr, row, col, direction)) {
-                                placeWord(newGrid, wordStr, row, col, direction);
-                                placed = true;
-                            }
-                            attempts++;
-                        }
-
-                        if (!placed) { allWordsPlaced = false; break; }
-                    }
-                    if (allWordsPlaced) successfulGeneration = true;
-                }
-
-                for (let r = 0; r < gridSize; r++) { for (let c = 0; c < gridSize; c++) {
-                    if (newGrid[r][c] === '') newGrid[r][c] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                }}
-                return newGrid;
-            };
-
+            // --- CÓDIGO INALTERADO E COMPACTADO (para encurtar) ---
+            generateGrid = () => { const s = difficultySettings[currentDifficulty]; const w = [...currentWords].sort((a,b) => b.length-a.length); let n, f = false; while(!f) { n = Array.from({length:gridSize},()=>Array(gridSize).fill('')); let a = true; for(const o of w) { let p=false,t=0,m=200; while(!p&&t<m) { const i=Math.floor(Math.random()*s.directions.length),d=s.directions[i],v=s.allowReverse?Math.random()>0.5:false,r=v?o.split('').reverse().join(''):o; let w,l; if(d==='horizontal'){w=Math.floor(Math.random()*gridSize);l=Math.floor(Math.random()*(gridSize-r.length+1));} else if(d==='vertical'){w=Math.floor(Math.random()*(gridSize-r.length+1));l=Math.floor(Math.random()*gridSize);} else {w=Math.floor(Math.random()*(gridSize-r.length+1));l=Math.floor(Math.random()*(gridSize-r.length+1));} if(canPlaceWord(n,r,w,l,d)){placeWord(n,r,w,l,d);p=true;} t++;} if(!p){a=false;break;}} if(a)f=true;} for(let r=0;r<gridSize;r++){for(let c=0;c<gridSize;c++){if(n[r][c]==='')n[r][c]=String.fromCharCode(65+Math.floor(Math.random()*26));}} return n;};
+            canPlaceWord = (g,w,r,c,d)=>{for(let i=0;i<w.length;i++){let cr=r,cc=c;if(d==='horizontal')cc+=i;else if(d==='vertical')cr+=i;else{cr+=i;cc+=i;}if(g[cr][cc]!==''&&g[cr][cc]!==w[i])return false;}return true;};
+            placeWord = (g,w,r,c,d)=>{for(let i=0;i<w.length;i++){let cr=r,cc=c;if(d==='horizontal')cc+=i;else if(d==='vertical')cr+=i;else{cr+=i;cc+=i;}g[cr][cc]=w[i];}};
+            renderGrid = ()=>{gridElement.innerHTML='';for(let r=0;r<gridSize;r++){for(let c=0;c<gridSize;c++){const e=document.createElement('div');e.className='grid-cell';e.textContent=grid[r][c];e.dataset.row=r;e.dataset.col=c;gridElement.appendChild(e);}}};
+            
             // Inicia o Jogo
             showStartScreen();
         });
